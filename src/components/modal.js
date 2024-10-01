@@ -11,14 +11,14 @@ export function closeModal (popup) {
     popup.classList.remove('popup_is-opened');
     document.removeEventListener('keydown', modalCloseEsc);
     popup.removeEventListener('click', modalCloseOverlay);
-}
+};
 
 function modalCloseEsc (evt) {
     if (evt.key === 'Escape') {
         const activeModal = document.querySelector('.popup_is-opened');
-        closeModal(activeModal)
-    }
-}
+        closeModal(activeModal);
+    };
+};
 
 function modalCloseOverlay (evt) {
     if (evt.target === evt.currentTarget) {
