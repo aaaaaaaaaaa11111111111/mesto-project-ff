@@ -2,6 +2,7 @@ import './pages/index.css';
 import { initialCards } from './components/cards.js';
 import { createCard, deleteCard, likeCard } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
+import { validationConfig, enableValidation, clearValidation } from './components/validation.js';
 
 const cardContainer = document.querySelector('.places__list');
 const buttonOpenEditProfileForm = document.querySelector('.profile__edit-button'); 
@@ -10,7 +11,7 @@ const profileName = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description'); 
 const nameInput = document.querySelector('.popup__input_type_name'); 
 const jobInput = document.querySelector('.popup__input_type_description');
-const buttonOpenAddCardForm = document.querySelector('.profile__add-button'); 
+const buttonOpenAddCardForm = document.querySelector('.profile__add-button');
 const popupAdd = document.querySelector('.popup_type_new-card');
 const closePopupButton = document.querySelectorAll('.popup__close');
 const formElementEdit = document.forms['edit-profile'];
@@ -30,7 +31,7 @@ initialCards.forEach(function(el) {
 });
 
 function handleFormSubmit(evt) {
-    evt.preventDefault(); 
+    evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileDescription.textContent = jobInput.value;
     closeModal(popupEdit);
@@ -55,19 +56,20 @@ function handleFormSubmitCard (evt) {
     formElementCard.reset();
 };
 
-buttonOpenEditProfileForm.addEventListener('click', () => { 
-    nameInput.value = profileName.textContent; 
-    jobInput.value = profileDescription.textContent; 
-    openModal(popupEdit); 
-}); 
+buttonOpenEditProfileForm.addEventListener('click', () => {
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileDescription.textContent;
+    openModal(popupEdit);
+    //clearValidation(formElementEdit, validationConfig);
+});
 
 buttonOpenAddCardForm.addEventListener('click', () => { 
-    openModal(popupAdd); 
+    openModal(popupAdd);
 });
 
 closePopupButton.forEach(el => {
     const modal = el.closest('.popup');
-    el.addEventListener('click', () => { 
+    el.addEventListener('click', () => {
         closeModal(modal);
     });
 });
@@ -75,3 +77,5 @@ closePopupButton.forEach(el => {
 formElementEdit.addEventListener('submit', handleFormSubmit);
 
 formElementCard.addEventListener('submit', handleFormSubmitCard);
+
+enableValidation(validationConfig);
