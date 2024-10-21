@@ -59,11 +59,12 @@ function handleFormSubmitCard (evt) {
 buttonOpenEditProfileForm.addEventListener('click', () => {
     nameInput.value = profileName.textContent;
     jobInput.value = profileDescription.textContent;
+    clearValidation(formElementEdit, validationConfig);
     openModal(popupEdit);
-    //clearValidation(formElementEdit, validationConfig);
 });
 
 buttonOpenAddCardForm.addEventListener('click', () => { 
+    clearValidation(formElementCard, validationConfig);
     openModal(popupAdd);
 });
 
