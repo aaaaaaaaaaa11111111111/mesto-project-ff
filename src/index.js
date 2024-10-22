@@ -3,6 +3,7 @@ import { initialCards } from './components/cards.js';
 import { createCard, deleteCard, likeCard } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
 import { validationConfig, enableValidation, clearValidation } from './components/validation.js';
+import { getUserInfo } from './components/api.js';
 
 const cardContainer = document.querySelector('.places__list');
 const buttonOpenEditProfileForm = document.querySelector('.profile__edit-button'); 
@@ -80,3 +81,5 @@ formElementEdit.addEventListener('submit', handleFormSubmit);
 formElementCard.addEventListener('submit', handleFormSubmitCard);
 
 enableValidation(validationConfig);
+
+getUserInfo();
