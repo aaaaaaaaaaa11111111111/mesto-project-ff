@@ -13,12 +13,9 @@ export const getUserInfo = () => {
     })
     .then(res => {
         if(res.ok) {
-            return res.json();   
+          return res.json();   
         }
     return Promise.reject(`Ошибка: ${res.status}`)
-    })
-    .then((data) => {
-        console.log(data)
     })
 };
 
@@ -27,10 +24,10 @@ export const getInitialCards = () => {
         method: 'GET',
         headers: config.headers
     })
-      .then(res => {
+    .then(res => {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-  };
+    return Promise.reject(`Ошибка: ${res.status}`);
+    })
+};

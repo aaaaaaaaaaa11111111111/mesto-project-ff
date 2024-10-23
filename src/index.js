@@ -1,9 +1,9 @@
 import './pages/index.css';
-import { initialCards } from './components/cards.js';
+// import { initialCards } from './components/cards.js';
 import { createCard, deleteCard, likeCard } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
 import { validationConfig, enableValidation, clearValidation } from './components/validation.js';
-import { getUserInfo } from './components/api.js';
+import { getInitialCards, getUserInfo } from './components/api.js';
 
 const cardContainer = document.querySelector('.places__list');
 const buttonOpenEditProfileForm = document.querySelector('.profile__edit-button'); 
@@ -23,13 +23,16 @@ const formElementCard = document.forms['new-place'];
 const cardNameInput = document.querySelector('.popup__input_type_card-name');
 const cardLinkInput = document.querySelector('.popup__input_type_url');
 
-function appendCards (cardContainer, cardItem) {
-    cardContainer.append(cardItem);
-};
+let userId = "";
+let cards = [];
 
-initialCards.forEach(function(el) {
-    appendCards(cardContainer, createCard(el, deleteCard, openImageModal, likeCard));
-});
+// function appendCards (cardContainer, cardItem) {
+//     cardContainer.append(cardItem);
+// };
+
+// initialCards.forEach(function(el) {
+//     appendCards(cardContainer, createCard(el, deleteCard, openImageModal, likeCard));
+// });
 
 function handleFormSubmit(evt) {
     evt.preventDefault();
@@ -82,4 +85,23 @@ formElementCard.addEventListener('submit', handleFormSubmitCard);
 
 enableValidation(validationConfig);
 
-getUserInfo();
+const profileImage = document.querySelector('.profile__image');
+
+const renderCards = () => {
+    cards.forEach((el) => {
+        const newCard = createCard (el, deleteCard, openImageModal, likeCard);
+        cardContainer.append(newCard);
+    })
+};
+
+Promise.all([getUserInfo(), getInitialCards()])
+    .then(([userInfo, initialCards]) => {
+        console.log(userInfo);
+        console.log(initialCards);
+        profileImage.style.backgroundImage = `url(${userInfo.avatar})`
+        profileName.textContent = userInfo.name
+        profileDescription.textContent = userInfo.about
+        userId = userInfo._id
+        cards = initialCards
+        renderCards()
+    });
