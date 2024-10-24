@@ -3,7 +3,7 @@ import './pages/index.css';
 import { createCard, deleteCard, likeCard } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
 import { validationConfig, enableValidation, clearValidation } from './components/validation.js';
-import { getInitialCards, getUserInfo } from './components/api.js';
+import { getInitialCards, getUserInfo, patchUserInfo, postCard } from './components/api.js';
 
 const cardContainer = document.querySelector('.places__list');
 const buttonOpenEditProfileForm = document.querySelector('.profile__edit-button'); 
@@ -36,9 +36,13 @@ let cards = [];
 
 function handleFormSubmit(evt) {
     evt.preventDefault();
-    profileName.textContent = nameInput.value;
-    profileDescription.textContent = jobInput.value;
+    patchUserInfo(nameInput.value, jobInput.value)
+    .then(res => {
+        profileName.textContent = res.name;
+        profileDescription.textContent = res.about;
+    })
     closeModal(popupEdit);
+    clearValidation(popupEdit, validationConfig);
 };
 
 function openImageModal (el) {
