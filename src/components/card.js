@@ -6,19 +6,25 @@ export function createCard (el, userId, handleDeleteCard, openImageModal, likeCa
     const cardTitle = cardItem.querySelector('.card__title');
     const cardImage = cardItem.querySelector('.card__image');
     const deleteButton = cardItem.querySelector('.card__delete-button');
+    const likeCounter = cardItem.querySelector('.card__like-counter');
+
     cardTitle.textContent = el.name;
     cardItem.querySelector('.card__image').setAttribute('src', el.link);
     cardItem.querySelector('.card__image').setAttribute('alt', `${el.name} фотография`);
     cardImage.addEventListener('click', () =>  openImageModal(el));
     cardItem.addEventListener('click', likeCard);
-    // cardItem.querySelector('.card__delete-button').addEventListener('click', () => handleDeleteCard(cardItem));
-    if (el._id === userId) {
-        deleteButton.addEventListener('click', () => {
-            handleDeleteCard(el._id, cardItem); 
-        });
-    } else {
-        deleteButton.remove()
+    
+    if (el.likes.length > 0) {
+        likeCounter.textContent = el.likes.length
     }
+
+    // if (el._id === userId) {
+    //     deleteButton.addEventListener('click', () => {
+    //         handleDeleteCard(el, cardItem); 
+    //     });
+    // } else {
+    //     deleteButton.remove()
+    // }
 
     return cardItem;
 };

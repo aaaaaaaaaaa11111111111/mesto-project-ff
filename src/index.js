@@ -106,4 +106,6 @@ Promise.all([getUserInfo(), getInitialCards()])
         userId = userInfo._id
         cards = initialCards
         renderCards();
-    });
+});
+
+console.log(userId);
