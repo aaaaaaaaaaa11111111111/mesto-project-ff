@@ -1,6 +1,6 @@
 import './pages/index.css';
 // import { initialCards } from './components/cards.js';
-import { createCard, deleteCard, likeCard } from './components/card.js';
+import { createCard, handleDeleteCard, likeCard } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
 import { validationConfig, enableValidation, clearValidation } from './components/validation.js';
 import { getInitialCards, getUserInfo, patchUserInfo, postCard } from './components/api.js';
@@ -54,14 +54,14 @@ function openImageModal (el) {
 
 function handleFormSubmitCard (evt) {
     evt.preventDefault();
-    const newCardElement = {
-        name: cardNameInput.value,
-        link: cardLinkInput.value,
-      };
-    const newCard = createCard (newCardElement, deleteCard, openImageModal, likeCard);
-    cardContainer.prepend(newCard);
+    postCard(cardNameInput.value, cardLinkInput.value)
+    .then((el) => {
+        const newCard = createCard (el, userId, handleDeleteCard, openImageModal, likeCard);
+        cardContainer.prepend(newCard);
+    })
     closeModal(popupAdd);
     formElementCard.reset();
+    clearValidation(popupAdd, validationConfig);
 };
 
 buttonOpenEditProfileForm.addEventListener('click', () => {
@@ -93,19 +93,17 @@ const profileImage = document.querySelector('.profile__image');
 
 const renderCards = () => {
     cards.forEach((el) => {
-        const newCard = createCard (el, deleteCard, openImageModal, likeCard);
+        const newCard = createCard (el, userId, handleDeleteCard, openImageModal, likeCard);
         cardContainer.append(newCard);
     })
 };
 
 Promise.all([getUserInfo(), getInitialCards()])
     .then(([userInfo, initialCards]) => {
-        console.log(userInfo);
-        console.log(initialCards);
         profileImage.style.backgroundImage = `url(${userInfo.avatar})`
         profileName.textContent = userInfo.name
         profileDescription.textContent = userInfo.about
         userId = userInfo._id
         cards = initialCards
-        renderCards()
+        renderCards();
     });
