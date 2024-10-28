@@ -18,19 +18,19 @@ export function createCard (el, userId, handleDeleteCard, openImageModal, likeCa
         likeCounter.textContent = el.likes.length
     }
 
-    // if (el._id === userId) {
-    //     deleteButton.addEventListener('click', () => {
-    //         handleDeleteCard(el, cardItem); 
-    //     });
-    // } else {
-    //     deleteButton.remove()
-    // }
+    if (el.owner._id === userId) {
+        deleteButton.addEventListener('click', () => {
+            handleDeleteCard(el, cardItem); 
+        });
+    } else {
+        deleteButton.remove()
+    }
 
     return cardItem;
 };
 
 export function handleDeleteCard (cardId, cardItem) {
-    deleteCard(cardId)
+    deleteCard(cardId._id)
     .then(() =>{
         cardItem.remove(); 
     })
