@@ -1,6 +1,5 @@
 import './pages/index.css';
-// import { initialCards } from './components/cards.js';
-import { createCard, handleDeleteCard, likeCard } from './components/card.js';
+import { createCard, handleDeleteCard, like } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
 import { validationConfig, enableValidation, clearValidation } from './components/validation.js';
 import { getInitialCards, getUserInfo, patchUserInfo, postCard } from './components/api.js';
@@ -26,14 +25,6 @@ const cardLinkInput = document.querySelector('.popup__input_type_url');
 let userId = "";
 let cards = [];
 
-// function appendCards (cardContainer, cardItem) {
-//     cardContainer.append(cardItem);
-// };
-
-// initialCards.forEach(function(el) {
-//     appendCards(cardContainer, createCard(el, deleteCard, openImageModal, likeCard));
-// });
-
 function handleFormSubmit(evt) {
     evt.preventDefault();
     patchUserInfo(nameInput.value, jobInput.value)
@@ -56,7 +47,7 @@ function handleFormSubmitCard (evt) {
     evt.preventDefault();
     postCard(cardNameInput.value, cardLinkInput.value)
     .then((el) => {
-        const newCard = createCard (el, userId, handleDeleteCard, openImageModal, likeCard);
+        const newCard = createCard (el, userId, handleDeleteCard, openImageModal, like);
         cardContainer.prepend(newCard);
     })
     closeModal(popupAdd);
@@ -93,7 +84,7 @@ const profileImage = document.querySelector('.profile__image');
 
 const renderCards = () => {
     cards.forEach((el) => {
-        const newCard = createCard (el, userId, handleDeleteCard, openImageModal, likeCard);
+        const newCard = createCard (el, userId, handleDeleteCard, openImageModal, like);
         cardContainer.append(newCard);
     })
 };
@@ -107,5 +98,3 @@ Promise.all([getUserInfo(), getInitialCards()])
         cards = initialCards
         renderCards();
 });
-
-console.log(userId);
