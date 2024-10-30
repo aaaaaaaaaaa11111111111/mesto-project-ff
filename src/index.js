@@ -2,7 +2,7 @@ import './pages/index.css';
 import { createCard, handleDeleteCard, like } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
 import { validationConfig, enableValidation, clearValidation } from './components/validation.js';
-import { getInitialCards, getUserInfo, patchUserInfo, postCard } from './components/api.js';
+import { getInitialCards, getUserInfo, patchUserInfo, postCard, patchAvatar } from './components/api.js';
 
 const cardContainer = document.querySelector('.places__list');
 const buttonOpenEditProfileForm = document.querySelector('.profile__edit-button'); 
@@ -97,4 +97,11 @@ Promise.all([getUserInfo(), getInitialCards()])
         userId = userInfo._id
         cards = initialCards
         renderCards();
+});
+
+const popupAvatar = document.querySelector('.popup_type_avatar');
+
+profileImage.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    openModal(popupAvatar);
 });

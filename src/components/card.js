@@ -46,12 +46,11 @@ export function handleDeleteCard (cardId, cardItem) {
 
 export function like (likeButton, cardId, likeCounter) {
     const isLiked = likeButton.classList.contains('card__like-button_is-active');
-    const likeMethod = isLiked ? deleteLike(cardId) : putLike(cardId)
+    const likeMethod = isLiked ? deleteLike(cardId) : putLike(cardId);
     likeMethod
     .then((cardId) => {
         likeCounter.textContent = cardId.likes.length;
         likeButton.classList.toggle('card__like-button_is-active');
-        console.log(cardId)
     })
     .catch((err) => {
         console.log(err);
