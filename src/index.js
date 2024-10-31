@@ -100,8 +100,25 @@ Promise.all([getUserInfo(), getInitialCards()])
 });
 
 const popupAvatar = document.querySelector('.popup_type_avatar');
+const formElementAvatar = document.forms['avatar'];
+const avatarLinkInput = document.querySelector('#input_avatar-url')
 
 profileImage.addEventListener('click', (evt) => {
     evt.preventDefault();
     openModal(popupAvatar);
+    clearValidation(formElementAvatar, validationConfig);
 });
+
+function handleFormSubmitAvatar (evt) {
+    evt.preventDefault();
+    const imageUrl = avatarLinkInput.value;
+    patchAvatar(imageUrl)
+    .then (res => {
+        profileImage.style.backgroundImage = `url('${res.avatar}')`;
+    })
+    closeModal(popupAvatar);
+    formElementAvatar.reset();
+    clearValidation(formElementAvatar, validationConfig);
+}
+
+formElementAvatar.addEventListener('submit', handleFormSubmitAvatar);
