@@ -21,3 +21,7 @@
 .popup__content-avatar {
   min-height: 272px;
 }
+
+.popup__content_delete {
+  min-height: 181px;
+}

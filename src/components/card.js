@@ -1,4 +1,6 @@
 import { deleteCard, putLike, deleteLike } from './api.js'
+import { closeModal, openModal } from './modal.js';
+// import { openModal } from './modal.js';
 const cardTemplate = document.querySelector('#card-template').content;
 
 export function createCard (el, userId, handleDeleteCard, openImageModal, like) {
@@ -8,6 +10,7 @@ export function createCard (el, userId, handleDeleteCard, openImageModal, like) 
     const deleteButton = cardItem.querySelector('.card__delete-button');
     const likeCounter = cardItem.querySelector('.card__like-counter');
     const likeButton = cardItem.querySelector('.card__like-button');
+    const popupConfirm = document.querySelector('.popup_type_delete_confirm')
 
     cardTitle.textContent = el.name;
     cardItem.querySelector('.card__image').setAttribute('src', el.link);
@@ -28,7 +31,7 @@ export function createCard (el, userId, handleDeleteCard, openImageModal, like) 
 
     if (el.owner._id === userId) {
         deleteButton.addEventListener('click', () => {
-            handleDeleteCard(el, cardItem); 
+            handleDeleteCard(popupConfirm, el, cardItem); 
         });
     } else {
         deleteButton.remove();
@@ -37,13 +40,19 @@ export function createCard (el, userId, handleDeleteCard, openImageModal, like) 
     return cardItem;
 };
 
-export function handleDeleteCard (cardId, cardItem) {
-    deleteCard(cardId._id)
+export function handleDeleteCard (popupConfirm, el, cardItem) {
+    openModal(popupConfirm);
+    popupConfirm.querySelector('.popup__button').addEventListener('click', () => {
+    deleteCard(el._id)
     .then(() =>{
         cardItem.remove(); 
     })
+    .then(() => {
+        closeModal(popupConfirm);
+    })
     .catch((err) => {
         console.log(err);
+    })
     })
 };
 

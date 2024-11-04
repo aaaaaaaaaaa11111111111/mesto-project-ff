@@ -81,7 +81,6 @@ function handleFormSubmitCard (evt) {
     button.textContent = 'Сохранение...';
     postCard(cardNameInput.value, cardLinkInput.value)
     .then((res) => {
-        console.log(res)
         const newCard = createCard(res, userId, handleDeleteCard, openImageModal, like);
         cardContainer.prepend(newCard);
         closeModal(popupAdd);
