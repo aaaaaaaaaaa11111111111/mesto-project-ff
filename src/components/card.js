@@ -50,3 +50,7 @@ export function like (likeButton, cardId, likeCounter) {
         console.log(err);
     })
 };
+
+export function removeCard (el) {
+    el.item.remove()
+};

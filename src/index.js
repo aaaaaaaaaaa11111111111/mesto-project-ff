@@ -1,5 +1,5 @@
 import './pages/index.css';
-import { createCard, like } from './components/card.js';
+import { createCard, like, removeCard } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validation.js';
 import { getInitialCards, getUserInfo, patchUserInfo, postCard, deleteCard, patchAvatar } from './components/api.js';
@@ -71,16 +71,15 @@ closePopupButton.forEach(el => {
 function handleDeleteCard (el, cardItem) {
     openModal(popupConfirm);
     deleteElement = {id: el._id, item: cardItem};
-    return deleteElement;
 };
 
 function handleFormSubmitDeleteConfirmation (evt) {
     evt.preventDefault();
     const button = popupConfirm.querySelector('.popup__button');
     button.textContent = 'Удаление...';
-    deleteCard(deleteElement.id, deleteElement.item)
+    deleteCard(deleteElement.id)
     .then(() =>{
-        deleteElement.item.remove(); 
+        removeCard(deleteElement); 
     })
     .then(() => {
         closeModal(popupConfirm);
