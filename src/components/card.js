@@ -11,8 +11,8 @@ export function createCard (el, userId, handleDeleteCard, openImageModal, like) 
     const likeButton = cardItem.querySelector('.card__like-button');
 
     cardTitle.textContent = el.name;
-    cardItem.querySelector('.card__image').setAttribute('src', el.link);
-    cardItem.querySelector('.card__image').setAttribute('alt', `${el.name} фотография`);
+    cardImage.setAttribute('src', el.link);
+    cardImage.setAttribute('alt', `${el.name} фотография`);
     
     cardImage.addEventListener('click', () =>  openImageModal(el));
     likeButton.addEventListener('click', () => like(likeButton, el._id, likeCounter));
