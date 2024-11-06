@@ -1,1 +1,1 @@
-https://aaaaaaaaaaa11111111111.github.io/mesto-poject-ff
+https://aaaaaaaaaaa11111111111.github.io/mesto-project-ff/
