@@ -1,7 +1,7 @@
 import './pages/index.css';
 import { createCard, like } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
-import { validationConfig, enableValidation, clearValidation } from './components/validation.js';
+import { enableValidation, clearValidation } from './components/validation.js';
 import { getInitialCards, getUserInfo, patchUserInfo, postCard, deleteCard, patchAvatar } from './components/api.js';
 
 const cardContainer = document.querySelector('.places__list');
@@ -25,6 +25,15 @@ const formElementAvatar = document.forms['avatar'];
 const avatarLinkInput = document.querySelector('#input_avatar-url');
 const popupConfirm = document.querySelector('.popup_type_delete_confirm');
 const formElementConfirm = document.forms['confirm'];
+
+const validationConfig = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+};
 
 let userId = "";
 let cards = [];
