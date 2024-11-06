@@ -36,7 +36,6 @@ const validationConfig = {
 };
 
 let userId = "";
-let cards = [];
 let deleteElement = {};
 
 Promise.all([getUserInfo(), getInitialCards()])
@@ -45,11 +44,10 @@ Promise.all([getUserInfo(), getInitialCards()])
         profileName.textContent = userInfo.name
         profileDescription.textContent = userInfo.about
         userId = userInfo._id
-        cards = initialCards
-        renderCards();
+        renderCards(initialCards);
 });
 
-const renderCards = () => {
+const renderCards = (cards) => {
     cards.forEach((el) => {
         const newCard = createCard(el, userId, handleDeleteCard, openImageModal, like);
         cardContainer.append(newCard);
