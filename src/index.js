@@ -15,6 +15,8 @@ const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_description');
 const buttonOpenAddCardForm = document.querySelector('.profile__add-button');
 const popupAdd = document.querySelector('.popup_type_new-card');
+const cardNameInput = popupAdd.querySelector('.popup__input_type_card-name');
+const cardLinkInput = popupAdd.querySelector('.popup__input_type_url');
 const formElementCard = document.forms['new-place'];
 const closePopupButton = document.querySelectorAll('.popup__close');
 const popupTypeImage = document.querySelector('.popup_type_image');
@@ -123,8 +125,6 @@ buttonOpenAddCardForm.addEventListener('click', () => {
 
 function handleFormSubmitCard (evt) {
     evt.preventDefault();
-    const cardNameInput = popupAdd.querySelector('.popup__input_type_card-name');
-    const cardLinkInput = popupAdd.querySelector('.popup__input_type_url');
     const button = popupAdd.querySelector('.popup__button');
     button.textContent = 'Сохранение...';
     postCard(cardNameInput.value, cardLinkInput.value)
